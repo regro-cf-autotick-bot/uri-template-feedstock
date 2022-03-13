@@ -1,4 +1,4 @@
-{% set version = "1.1.0" %}
+{% set version = "1.2.0" %}
 
 package:
   name: uri-template
@@ -6,15 +6,15 @@ package:
 
 source:
   url: https://gitlab.linss.com/open-source/uri_template/-/archive/v{{ version }}/uri_template-v{{ version }}.tar.gz
-  sha256: d801df7d3bbd848e4dd2dd185396d826420dc29960832b85093c9e5a2d920562
+  sha256: f4da04a5fc7261b4cd71d0ba0549acb12a397351600d6b188230412c7667c77a
 
 build:
   noarch: python
   number: 0
   script:
     # upstream only publishes `.whl` files, source has `0.0.0` in version
-    - "{{ PYTHON }} {{ RECIPE_DIR | replace('\\', '/') }}/fix-version.py"
-    - "{{ PYTHON }} -m pip install . -vv"
+    - {{ PYTHON }} {{ RECIPE_DIR | replace('\', '/') }}/fix-version.py
+    - {{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
@@ -46,7 +46,7 @@ about:
   license: MIT
   license_family: MIT
   license_file: LICENSE
-  summary: 'An implementation of RFC 6570 URI Templates.'
+  summary: An implementation of RFC 6570 URI Templates.
 
 extra:
   recipe-maintainers:
