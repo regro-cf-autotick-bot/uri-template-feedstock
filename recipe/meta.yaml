@@ -7,7 +7,7 @@ package:
 source:
   - folder: dist
     url: https://pypi.io/packages/source/u/uri_template/uri_template-{{ version }}.tar.gz
-    sha256sum: 934e4d09d108b70eb8a24410af8615294d09d279ce0e7cbcdaef1bd21f932b06
+    sha256: 934e4d09d108b70eb8a24410af8615294d09d279ce0e7cbcdaef1bd21f932b06
   - folder: src
     url: https://github.com/plinss/uri_template/archive/refs/tags/v{{ version }}.tar.gz
     sha256: 1e37e14601ae685794d0d061da5481236f94a4b9c3db7b459d647de5160a79f3
