@@ -5,16 +5,17 @@ package:
   version: {{ version }}
 
 source:
-  url: https://gitlab.linss.com/open-source/uri_template/-/archive/v{{ version }}/uri_template-v{{ version }}.tar.gz
-  sha256: f4da04a5fc7261b4cd71d0ba0549acb12a397351600d6b188230412c7667c77a
+  - folder: dist
+    url: https://pypi.io/packages/source/u/uri_template/uri_template-{{ version }}.tar.gz
+    sha256sum: 934e4d09d108b70eb8a24410af8615294d09d279ce0e7cbcdaef1bd21f932b06
+  - folder: src
+    url: https://gitlab.linss.com/open-source/uri_template/-/archive/v{{ version }}/uri_template-v{{ version }}.tar.gz
+    sha256: f4da04a5fc7261b4cd71d0ba0549acb12a397351600d6b188230412c7667c77a
 
 build:
   noarch: python
   number: 0
-  script:
-    # upstream only publishes `.whl` files, source has `0.0.0` in version
-    - {{ PYTHON }} {{ RECIPE_DIR | replace('\', '/') }}/fix-version.py
-    - {{ PYTHON }} -m pip install . -vv
+  script: cd dist && {{ PYTHON }} -m pip install . -vv
 
 requirements:
   host:
@@ -25,8 +26,8 @@ requirements:
 
 test:
   source_files:
-    - test.py
-    - tests
+    - src/test.py
+    - src/tests
   imports:
     - uri_template
   requires:
@@ -38,14 +39,13 @@ test:
     - pip list
     - pip list | grep -E "uri-template\s+{{ version.replace(".", "\\.") }}"
     # upstream has home-rolled test suite
-    - coverage run --source=uri_template test.py
-    - coverage report -m --fail-under=91
+    - cd src && coverage run --source=uri_template test.py && coverage report -m --fail-under=91
 
 about:
   home: https://gitlab.linss.com/open-source/uri_template
   license: MIT
   license_family: MIT
-  license_file: LICENSE
+  license_file: dist/LICENSE
   summary: An implementation of RFC 6570 URI Templates.
 
 extra:
