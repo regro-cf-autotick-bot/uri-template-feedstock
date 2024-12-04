@@ -6,7 +6,7 @@ package:
 
 source:
   - folder: dist
-    url: https://pypi.io/packages/source/u/uri-template/uri-template-{{ version }}.tar.gz
+    url: https://pypi.org/packages/source/u/uri-template/uri-template-{{ version }}.tar.gz
     sha256: 0e00f8eb65e18c7de20d595a14336e9f337ead580c70934141624b6d1ffdacc7
   - folder: src
     url: https://github.com/plinss/uri_template/archive/refs/tags/v{{ version }}.tar.gz
@@ -14,16 +14,16 @@ source:
 
 build:
   noarch: python
-  number: 0
+  number: 1
   script: cd dist && {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
   host:
     - pip
-    - python >=3.7
+    - python {{ python_min }}
     - setuptools-scm
   run:
-    - python >=3.7
+    - python >={{ python_min }}
 
 test:
   source_files:
@@ -36,6 +36,7 @@ test:
     - m2-grep  # [win]
     - mypy
     - pip
+    - python {{ python_min }}
   commands:
     - pip check
     - pip list
